@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.xyz.grpc.user";
+option java_outer_classname = "UserServiceProto";
+option objc_class_prefix = "USER";
+
+package user;
+
+// The user service definition.
+service UserService {
+
+    //根据id查询用户
+    rpc QueryUserById (UserRequest) returns (UserResponse) {};
+
+    //双向流 支持1次或者多次
+    rpc queryUserIds (stream UserRequest) returns (stream UserResponse) {};
+
+}
+
+message UserResponse {
+    int64 userId = 1;
+    string name = 2;
+    int32 age = 3;
+}
+
+message UserRequest {
+    int64 userId = 1;
+    string name = 2;
+}
